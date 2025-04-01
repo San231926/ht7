@@ -9,6 +9,7 @@ import java.util.function.Consumer;
  * @param <E> Tipo de dato almacenado en el árbol, debe ser comparable.
  */
 public class BinarySearchTree<E extends Comparable<E>> {
+
     private NodoBST<E> root;
 
     /**
@@ -40,27 +41,34 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
 
     /**
-     * Busca un elemento en el árbol.
+     * Busca un elemento en el árbol por su clave.
      *
-     * @param key Elemento a buscar.
+     * @param key Clave del elemento a buscar.
      * @return El elemento encontrado o null si no está en el árbol.
      */
-    public E search(E key) {
+    public E search(String key) {
         return searchRec(root, key);
     }
 
     /**
-     * Método recursivo para buscar un elemento en el árbol.
+     * Método recursivo para buscar un elemento en el árbol por su clave.
      *
      * @param root Nodo actual del árbol.
-     * @param key Elemento a buscar.
+     * @param key Clave del elemento a buscar.
      * @return El elemento encontrado o null si no está en el árbol.
      */
-    private E searchRec(NodoBST<E> root, E key) {
-        if (root == null || root.data.equals(key)) {
-            return root != null ? root.data : null;
+    private E searchRec(NodoBST<E> root, String key) {
+        if (root == null) {
+            return null;
         }
-        return key.compareTo(root.data) < 0 ? searchRec(root.left, key) : searchRec(root.right, key);
+        Producto producto = (Producto) root.data;
+        if (producto.getSku().equals(key)) {
+            return root.data;
+        }
+        if (key.compareTo(producto.getSku()) < 0) {
+            return searchRec(root.left, key);
+        }
+        return searchRec(root.right, key);
     }
 
     /**
@@ -109,28 +117,32 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
     }
 
+
     /**
-     * Encuentra el elemento con el valor mínimo en el árbol.
+     * Devuelve el número de nodos en el árbol.
      *
-     * @return El elemento con el menor valor o null si el árbol está vacío.
+     * @return El tamaño del árbol.
      */
-    public E findMin() {
-        return findMinRec(root);
+    public int size() {
+        return sizeRec(root);
     }
 
     /**
-     * Método recursivo para encontrar el elemento con el menor valor en el árbol.
+     * Método recursivo para contar el número de nodos en el árbol.
      *
-     * @param root Nodo actual del árbol.
-     * @return El elemento con el menor valor o null si el árbol está vacío.
+     * @param node Nodo actual del árbol.
+     * @return El número de nodos en el árbol.
      */
-    private E findMinRec(NodoBST<E> root) {
-        if (root == null) {
-            return null;
+    private int sizeRec(NodoBST<E> node) {
+        if (node == null) {
+            return 0;
         }
-        if (root.left == null) {
-            return root.data;
-        }
-        return findMinRec(root.left);
+        return 1 + sizeRec(node.left) + sizeRec(node.right);
     }
 }
+
+
+
+
+
+

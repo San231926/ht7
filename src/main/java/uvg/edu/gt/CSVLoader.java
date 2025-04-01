@@ -4,15 +4,15 @@ import java.io.*;
 import java.util.List;
 
 /**
- * Clase para cargar datos desde un archivo CSV y almacenarlos en una lista.
+ * Clase para cargar datos desde un archivo CSV y almacenarlos en un UN BinarySearchTree.
  */
 public class CSVLoader {
     /**
-     * Carga los productos desde un archivo CSV y los inserta en una lista.
+     * Carga los productos desde un archivo CSV y los inserta en un BinarySearchTree.
      * @param filePath Ruta del archivo CSV.
-     * @param productList Lista donde se almacenarán los productos.
+     * @param productTree Árbol donde se almacenarán los productos.
      */
-    public static void loadCSV(String filePath, List<Producto> productList) {
+    public static void loadCSV(String filePath, BinarySearchTree<Producto> productTree) {
         String line;
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             br.readLine(); // Omitir la primera línea de encabezado
@@ -28,14 +28,14 @@ public class CSVLoader {
                     double priceRetail, priceCurrent;
                     if (values[2].isEmpty() || values[3].isEmpty()) {
                         continue;
-                    }else{
+                    } else {
                         priceRetail = Double.parseDouble(values[2]);
-                        priceCurrent = Double.parseDouble(values[3]);}
-
+                        priceCurrent = Double.parseDouble(values[3]);
+                    }
 
                     String productName = values[4];
                     Producto producto = new Producto(category, sku, priceRetail, priceCurrent, productName);
-                    productList.add(producto);
+                    productTree.insert(producto);
                 }
             }
         } catch (IOException | NumberFormatException e) {

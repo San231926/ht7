@@ -16,7 +16,8 @@ public class BinarySearchTreeTest {
     public void testInsert() {
         Producto producto = new Producto("Refrigerators", "1002585046", 162.16, 162.16, "1.6-cu ft Freestanding Mini Fridge Freezer Compartment (Stainless Steel)");
         bst.insert(producto);
-        assertEquals(producto, bst.search(producto));
+
+        assertEquals(producto, bst.search("1002585046"));
     }
 
     @Test
@@ -26,8 +27,8 @@ public class BinarySearchTreeTest {
         bst.insert(producto1);
         bst.insert(producto2);
 
-        assertEquals(producto1, bst.search(producto1));
-        assertEquals(producto2, bst.search(producto2));
-        assertNull(bst.search(new Producto("Refrigerators", "9999999999", 0, 0, "Non-existent product")));
+        assertEquals(producto1, bst.search("1002585046"));
+        assertEquals(producto2, bst.search("5002106143"));
+        assertNull(bst.search("9999999999"));
     }
 }

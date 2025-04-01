@@ -29,34 +29,7 @@ public class Producto implements Comparable<Producto> {
     }
 
     /**
-     * Obtiene el SKU del producto.
-     *
-     * @return Código SKU del producto.
-     */
-    public String getSku() {
-        return sku;
-    }
-
-    /**
-     * Obtiene el precio original del producto.
-     *
-     * @return Precio original del producto convertido a entero.
-     */
-    public int getPriceRetail() {
-        return (int) priceRetail;
-    }
-
-    /**
-     * Obtiene el precio actual del producto.
-     *
-     * @return Precio actual del producto convertido a entero.
-     */
-    public int getPriceCurrent() {
-        return (int) priceCurrent;
-    }
-
-    /**
-     * Compara este producto con otro basado en el precio actual.
+     * Compara este producto con otro basado en el SKU.
      *
      * @param other Producto con el que se va a comparar.
      * @return Un valor negativo si este producto es más barato,
@@ -64,7 +37,7 @@ public class Producto implements Comparable<Producto> {
      */
     @Override
     public int compareTo(Producto other) {
-        return Double.compare(this.priceCurrent, other.priceCurrent);
+        return this.sku.compareTo(other.sku);
     }
 
     /**
@@ -75,5 +48,14 @@ public class Producto implements Comparable<Producto> {
     @Override
     public String toString() {
         return "SKU: " + sku + ", Nombre: " + productName + ", Categoría: " + category + ", Precio Retail: " + priceRetail + ", Precio Actual: " + priceCurrent;
+    }
+
+    /**
+     * Devuelve el SKU del producto.
+     *
+     * @return SKU del producto.
+     */
+    public String getSku() {
+        return sku;
     }
 }
